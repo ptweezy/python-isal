@@ -633,6 +633,8 @@ typedef struct
     char eof;
     uint8_t saved_bitbuffer[8];
     Py_ssize_t saved_bitbuffer_size;
+    Py_ssize_t last_input_size;
+    Py_ssize_t last_output_size;
     PyThread_type_lock lock;
     // inflate_state should be at the bottom as it contains buffers inside the struct.
     struct inflate_state zst;
@@ -684,6 +686,8 @@ newdecompobject()
         return NULL;
     self->eof = 0;
     self->saved_bitbuffer_size = 0;
+    self->last_input_size = 0;
+    self->last_output_size = 0;
     self->is_initialised = 0;
     self->method_set = 0;
     self->zdict = NULL;
@@ -1002,7 +1006,7 @@ isal_zlib_Decompress_decompress_impl(decompobject *self, Py_buffer *data,
                                 Py_ssize_t max_length)
 {
     int err = ISAL_DECOMP_OK;
-    Py_ssize_t ibuflen, obuflen = DEF_BUF_SIZE, hard_limit;
+    Py_ssize_t ibuflen, obuflen, hard_limit;
     PyObject *RetVal = NULL;
 
     if (max_length < 0) {
@@ -1013,11 +1017,28 @@ isal_zlib_Decompress_decompress_impl(decompobject *self, Py_buffer *data,
     else
         hard_limit = max_length;
 
+    ENTER_ZLIB(self);
+
+    /* Calls on one stream tend to return similar amounts of data, such as
+       websocket messages of one kind or file chunks of max_length. Expect
+       the output of the last call that consumed input, scaled down when
+       this call has less input, and add a quarter, so that a similar
+       output fits without growing the buffer. */
+    obuflen = DEF_BUF_SIZE;
+    if (self->last_input_size > 0 && !self->eof) {
+        double expected = (double)self->last_output_size;
+        if (data->len < self->last_input_size)
+            expected = expected * data->len / self->last_input_size;
+        if (expected > DEF_MAX_OUTPUT_HINT_SIZE)
+            expected = DEF_MAX_OUTPUT_HINT_SIZE;
+        expected += expected / 4;
+        if (expected > obuflen)
+            obuflen = (Py_ssize_t)expected;
+    }
+
     /* limit amount of data allocated to max_length */
     if (max_length && obuflen > max_length)
         obuflen = max_length;
-
-    ENTER_ZLIB(self);
 
     if (!self->method_set) {
         if (data->len == 0) {
@@ -1092,8 +1113,16 @@ isal_zlib_Decompress_decompress_impl(decompobject *self, Py_buffer *data,
     }
 
     if (_PyBytes_Resize(&RetVal, self->zst.next_out -
-                        (uint8_t *)PyBytes_AS_STRING(RetVal)) == 0)
+                        (uint8_t *)PyBytes_AS_STRING(RetVal)) == 0) {
+        /* Keep the previous sizes after a call that consumed no input, such
+           as an empty call that only checks for pending output. */
+        Py_ssize_t consumed = self->zst.next_in - (uint8_t *)data->buf;
+        if (consumed > 0) {
+            self->last_input_size = consumed;
+            self->last_output_size = PyBytes_GET_SIZE(RetVal);
+        }
         goto success;
+    }
 
  abort:
     Py_CLEAR(RetVal);

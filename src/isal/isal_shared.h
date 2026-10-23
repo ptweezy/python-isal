@@ -38,6 +38,9 @@ static PyObject *IsalError;
 /* Initial buffer size. */
 #define DEF_BUF_SIZE (16*1024)
 #define DEF_MAX_INITIAL_BUF_SIZE (16 * 1024 * 1024)
+/* Largest output that Decompress.decompress expects, before it adds a
+   quarter. */
+#define DEF_MAX_OUTPUT_HINT_SIZE (1024 * 1024)
 #define ISAL_BEST_SPEED ISAL_DEF_MIN_LEVEL
 #define ISAL_BEST_COMPRESSION ISAL_DEF_MAX_LEVEL
 #define ISAL_DEFAULT_COMPRESSION 2

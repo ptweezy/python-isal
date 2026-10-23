@@ -10,6 +10,17 @@ Changelog
 
 version 1.8.1-dev
 -----------------
++ ``isal_zlib.decompressobj().decompress()`` starts its output buffer at the
+  output size of the last call on the same stream that consumed input, plus
+  a quarter, instead of at 16 KiB. When a call has less input than the last
+  call consumed, the start size shrinks in proportion. The start size is
+  between 16 KiB and 1.25 MiB, but never more than ``max_length``. The first
+  call and calls after the end of the stream start at 16 KiB. Streams of
+  similar messages grow the buffer less often: for example, a stream of
+  512 KiB ``b"x"`` websocket messages, as in aiohttp's benchmark, doubles the
+  buffer only in the first message, instead of six times in each message. A
+  less compressible message after a large, highly compressible one can start
+  with a buffer of up to 1.25 MiB.
 + ``isal_zlib.compressobj`` supports ``strategy=Z_FIXED`` at compression
   level 0. Level 0 then uses fixed Huffman codes instead of starting each
   block with a Huffman table of about 110 bytes. This shrinks small flushed
