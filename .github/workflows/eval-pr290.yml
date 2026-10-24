@@ -1,0 +1,148 @@
+# Evaluation of python-isal PR #290 on runners that the local machine can't
+# provide: Windows with MSVC (as the release wheels), macOS arm64, a Linux VM,
+# and free-threaded CPython 3.14t. Not part of the PR. It only builds, tests
+# and benchmarks develop (cfcf8b9) and the PR (b5e0495) plus ablation variants.
+name: eval-pr290
+on:
+  push:
+    branches: [eval-pr290-ci]
+  workflow_dispatch:
+
+env:
+  DEVELOP_SHA: cfcf8b9157707b4c0ccd2f38ef2ebdbdc2f08322
+  PR_SHA: b5e04953bd3194ef80ea637a65be5091bf102542
+
+jobs:
+  bench:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: eval
+      - uses: actions/checkout@v4
+        with:
+          repository: pycompression/python-isal
+          ref: ${{ env.DEVELOP_SHA }}
+          path: work/src/develop
+          submodules: recursive
+      - uses: actions/checkout@v4
+        with:
+          repository: ptweezy/python-isal
+          ref: ${{ env.PR_SHA }}
+          path: work/src/pr
+          submodules: recursive
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install nasm (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y -qq nasm
+      - name: Install nasm (macOS)
+        if: runner.os == 'macOS'
+        run: brew install nasm
+      - name: Set MSVC developer prompt
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Install nasm (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/setup-nasm@v1
+      - name: Record the environment
+        run: |
+          mkdir -p results
+          {
+            python -c "import platform, sys, os; print(platform.platform()); print(platform.machine(), platform.processor()); print(sys.version); print('cpus', os.cpu_count())"
+            case "$RUNNER_OS" in
+              Linux) lscpu | grep -E "Model name|^CPU\(s\)|Hypervisor"; uname -a; gcc --version | head -1 ;;
+              macOS) sysctl -n machdep.cpu.brand_string; sw_vers; uname -a; cc --version | head -1 ;;
+              Windows) powershell -NoProfile -Command "(Get-CimInstance Win32_Processor).Name; (Get-CimInstance Win32_OperatingSystem).Caption"; cl 2>&1 | head -1 ;;
+            esac
+          } > results/env.txt 2>&1
+          cat results/env.txt
+      - name: Build the variants
+        run: python eval/bench/build_variants.py work develop pr nofstat firstchunk stats-pr stats-dev 2>&1 | tee results/build.log
+      - name: Test every build
+        run: |
+          for v in develop pr nofstat firstchunk stats-pr stats-dev; do
+            if [ "$RUNNER_OS" = Windows ]; then py=work/v/$v/Scripts/python.exe; else py=work/v/$v/bin/python; fi
+            echo "== $v own suite: $( (cd work/src/$v && ../../../$py -m pytest -q -p no:cacheprovider tests/ 2>&1) | tail -1)" | tee -a results/tests.txt
+            echo "== $v PR test_readall.py: $($py -m pytest -q -p no:cacheprovider work/src/pr/tests/test_readall.py 2>&1 | tail -1)" | tee -a results/tests.txt
+          done
+      - name: Page fault cost
+        run: python eval/bench/fault_cost.py 64 15 | tee results/fault_cost.txt
+      - name: Worst-case streams
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then py=work/v/develop/Scripts/python.exe; else py=work/v/develop/bin/python; fi
+          WORST_DIR=work/worst $py eval/bench/gen_worst.py | tee results/worst_files.txt
+      - name: Benchmarks
+        run: |
+          python eval/bench/make_ci_specs.py work
+          for s in ci_main ci_worst ci_stats; do
+            python eval/bench/bench.py work/specs/$s.json results/$s.jsonl
+          done
+      - name: Summaries
+        if: always()
+        run: |
+          for s in ci_main ci_worst; do
+            [ -f results/$s.jsonl ] || continue
+            python eval/bench/summarize.py --wall results/$s.jsonl > results/$s.wall.md
+            python eval/bench/summarize.py --cpu results/$s.jsonl > results/$s.cpu.md
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.os }}
+          path: results/
+
+  freethreaded:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: eval
+      - uses: actions/checkout@v4
+        with:
+          repository: pycompression/python-isal
+          ref: ${{ env.DEVELOP_SHA }}
+          path: work/src/develop
+          submodules: recursive
+      - uses: actions/checkout@v4
+        with:
+          repository: ptweezy/python-isal
+          ref: ${{ env.PR_SHA }}
+          path: work/src/pr
+          submodules: recursive
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14t"
+      - run: sudo apt-get install -y -qq nasm
+      - name: Build develop and the PR
+        run: |
+          mkdir -p results
+          python -c "import sys; print(sys.version, sys._is_gil_enabled())" | tee results/env.txt
+          python eval/bench/build_variants.py work develop pr 2>&1 | tee results/build.log
+      - name: Tests and stress test
+        run: |
+          for v in develop pr; do
+            py=work/v/$v/bin/python
+            echo "== $v own suite: $( (cd work/src/$v && ../../../$py -m pytest -q -p no:cacheprovider tests/ 2>&1) | tail -1)" | tee -a results/tests.txt
+            echo "== $v PR test_readall.py: $($py -m pytest -q -p no:cacheprovider work/src/pr/tests/test_readall.py 2>&1 | tail -1)" | tee -a results/tests.txt
+            echo "== $v stress test" | tee -a results/stress.txt
+            $py eval/bench/stress_ft.py 2>&1 | tee -a results/stress.txt
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-freethreaded
+          path: results/

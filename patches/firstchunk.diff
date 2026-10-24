@@ -1,0 +1,52 @@
+diff --git a/src/isal/isal_zlibmodule.c b/src/isal/isal_zlibmodule.c
+index 7686d0a..9b63e0a 100644
+--- a/src/isal/isal_zlibmodule.c
++++ b/src/isal/isal_zlibmodule.c
+@@ -2132,21 +2132,44 @@ GzipReader_readall(GzipReader *self, PyObject *Py_UNUSED(ignore))
+ {
+     /* Try to consume the entire buffer without too much overallocation */
+     Py_ssize_t chunk_size = self->buffer_size * 4;
++    ENTER_ZLIB(self);
++    /* Fill an empty input buffer outside a deflate block, so that the first
++       chunk of a small file fits the file rather than the input buffer. The
++       end of a member can still need the bytes just before current_pos. */
++    if (self->current_pos == self->buffer_end &&
++        self->stream_phase != GzipReader_DEFLATE_BLOCK) {
++        while (!self->all_bytes_read && (size_t)(self->buffer_end -
++                                                 self->input_buffer) <
++                                            self->buffer_size) {
++            if (GzipReader_read_from_file(self) < 0) {
++                LEAVE_ZLIB(self);
++                return NULL;
++            }
++        }
++    }
++    Py_ssize_t available = self->buffer_end - self->current_pos;
++    LEAVE_ZLIB(self);
++    Py_ssize_t first_size = DEF_BUF_SIZE;
++    if (available > chunk_size / 4) {
++        first_size = chunk_size;
++    } else if (available * 4 > first_size) {
++        first_size = available * 4;
++    }
+     /* Rather than immediately creating a list, read one chunk first and
+        only create a list when more read operations are necessary. */
+-    PyObject *first_chunk = PyBytes_FromStringAndSize(NULL, chunk_size);
++    PyObject *first_chunk = PyBytes_FromStringAndSize(NULL, first_size);
+     if (first_chunk == NULL) {
+         return NULL;
+     }
+     ENTER_ZLIB(self);
+     Py_ssize_t written_size = GzipReader_read_into_buffer(
+-        self, (uint8_t *)PyBytes_AS_STRING(first_chunk), chunk_size);
++        self, (uint8_t *)PyBytes_AS_STRING(first_chunk), first_size);
+     LEAVE_ZLIB(self);
+     if (written_size < 0) {
+         Py_DECREF(first_chunk);
+         return NULL;
+     }
+-    if (written_size < chunk_size) {
++    if (written_size < first_size) {
+         if (_PyBytes_Resize(&first_chunk, written_size) < 0) {
+             return NULL;
+         }

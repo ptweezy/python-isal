@@ -1,0 +1,79 @@
+diff --git a/src/isal/isal_zlibmodule.c b/src/isal/isal_zlibmodule.c
+index 1c73112..a137f74 100644
+--- a/src/isal/isal_zlibmodule.c
++++ b/src/isal/isal_zlibmodule.c
+@@ -25,8 +25,6 @@ Changes compared to CPython:
+ 
+ #include "isal_shared.h"
+ 
+-#include <sys/stat.h>
+-
+ #include <isa-l/crc.h>
+ #include "crc32_combine.h"
+ 
+@@ -2135,51 +2133,16 @@ GzipReader_seek(GzipReader *self, PyObject *args, PyObject *kwargs)
+ }
+ 
+ /* Return the number of compressed bytes that are not decompressed yet, or -1
+-   if that is unknown. It is known for bytes-like objects, for regular files,
+-   and for streams that were read to the end. readall() uses it only to choose
+-   how much memory to allocate. */
++   if that is unknown. It is known for bytes-like objects and for streams that
++   were read to the end. readall() uses it only to choose how much memory to
++   allocate. */
+ static Py_ssize_t
+ GzipReader_compressed_left(GzipReader *self)
+ {
+-    Py_ssize_t left = self->buffer_end - self->current_pos;
+     if (self->all_bytes_read) {
+-        return left;
+-    }
+-    int fd = PyObject_AsFileDescriptor(self->fp);
+-    if (fd == -1) {
+-        PyErr_Clear();
+-        return -1;
+-    }
+-#ifdef MS_WINDOWS
+-    struct _stat64 st;
+-    if (_fstat64(fd, &st) != 0 || (st.st_mode & _S_IFMT) != _S_IFREG) {
+-        return -1;
+-    }
+-#else
+-    struct stat st;
+-    if (fstat(fd, &st) != 0 || !S_ISREG(st.st_mode)) {
+-        return -1;
+-    }
+-#endif
+-    PyObject *pos_obj = PyObject_CallMethod(self->fp, "tell", NULL);
+-    if (pos_obj == NULL) {
+-        PyErr_Clear();
+-        return -1;
+-    }
+-    long long pos = PyLong_AsLongLong(pos_obj);
+-    Py_DECREF(pos_obj);
+-    if (pos == -1 && PyErr_Occurred()) {
+-        PyErr_Clear();
+-        return -1;
+-    }
+-    if (pos < 0 || pos > (long long)st.st_size) {
+-        return left;
+-    }
+-    long long file_left = (long long)st.st_size - pos;
+-    if (file_left > PY_SSIZE_T_MAX - left) {
+-        return -1;
++        return self->buffer_end - self->current_pos;
+     }
+-    return left + (Py_ssize_t)file_left;
++    return -1;
+ }
+ 
+ /* Return the size for the readall() buffer when it is full: the output so
+@@ -2219,7 +2182,7 @@ GzipReader_readall(GzipReader *self, PyObject *Py_UNUSED(ignore))
+     ENTER_ZLIB(self);
+     /* Fill the input buffer first, so that a small file gets a buffer for
+        its own size rather than for the size of the input buffer, and its size
+-       is known without calling fstat(). Only do this with an empty buffer
++       is known. Only do this with an empty buffer
+        outside a deflate block: the end of a member can still need the bytes
+        just before current_pos, which reading would overwrite. */
+     if (self->current_pos == self->buffer_end &&
