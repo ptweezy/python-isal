@@ -24,6 +24,8 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Keep LF line endings (the variant patches expect them)
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
         with:
           path: eval

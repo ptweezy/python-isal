@@ -83,8 +83,10 @@ def shared(make_reader, label, threads=8):
         while True:
             if i % 2:
                 b = reader.read(8 * rng.randrange(1, 8192))
-            else:
+            elif hasattr(reader, "readall"):
                 b = reader.readall()
+            else:
+                b = reader.read()  # IGzipFile: read() without a size
             with lock:
                 chunks.append(b)
             if not b:
