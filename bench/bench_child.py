@@ -113,6 +113,27 @@ else:
         return r.ru_minflt, r.ru_majflt, rss
 
 
+# Thread CPU time. On Windows, time.thread_time_ns() advances in 15.6 ms
+# ticks, so use QueryThreadCycleTime(), which counts the CPU cycles of the
+# thread in user and kernel mode. Only ratios between builds are reported, so
+# the unit doesn't matter.
+if sys.platform == "win32":
+    _k32.GetCurrentThread.restype = wintypes.HANDLE
+    _k32.QueryThreadCycleTime.argtypes = [wintypes.HANDLE,
+                                          ctypes.POINTER(ctypes.c_uint64)]
+    _k32.QueryThreadCycleTime.restype = wintypes.BOOL
+    _thread = _k32.GetCurrentThread()
+    _cycles = ctypes.c_uint64()
+
+    def cpu_now():
+        _k32.QueryThreadCycleTime(_thread, ctypes.byref(_cycles))
+        return _cycles.value
+    CPU_UNIT = "cycles"
+else:
+    cpu_now = time.thread_time_ns
+    CPU_UNIT = "ns"
+
+
 def stats():
     f = getattr(isal_zlib, "_readall_stats", None)
     return list(f()) if f else None
@@ -120,7 +141,7 @@ def stats():
 
 fn = make(call, path)
 info = {"isal_file": isal_zlib.__file__, "isal_version": isal.__version__,
-        "python": sys.version.split()[0],
+        "python": sys.version.split()[0], "cpu_unit": CPU_UNIT,
         "malloc_env": {k: v for k, v in os.environ.items()
                        if k.startswith("MALLOC_") or k == "GLIBC_TUNABLES"}}
 if use_tracemalloc:
@@ -136,18 +157,18 @@ if use_tracemalloc:
 
 stats()
 f0, j0, rss0 = faults()
-c0, w0 = time.thread_time_ns(), time.perf_counter_ns()
+c0, w0 = cpu_now(), time.perf_counter_ns()
 out_len = fn()
-cold_cpu, cold_wall = time.thread_time_ns() - c0, time.perf_counter_ns() - w0
+cold_cpu, cold_wall = cpu_now() - c0, time.perf_counter_ns() - w0
 f1, j1, rss1 = faults()
 cold_stats = stats()
 fn()  # untimed warm-up
 warm_cpu, warm_wall, warm_flt = [], [], []
 for _ in range(warm_n):
     fa, _, _ = faults()
-    c0, w0 = time.thread_time_ns(), time.perf_counter_ns()
+    c0, w0 = cpu_now(), time.perf_counter_ns()
     fn()
-    warm_cpu.append(time.thread_time_ns() - c0)
+    warm_cpu.append(cpu_now() - c0)
     warm_wall.append(time.perf_counter_ns() - w0)
     warm_flt.append(faults()[0] - fa)
 print(json.dumps(dict(info, out_len=out_len, cold_cpu=cold_cpu,

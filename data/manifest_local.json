@@ -1,0 +1,1282 @@
+{
+ "csv.128m": {
+  "gzip6": {
+   "gz_size": 41423184,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 45996134,
+   "ratio": 2.92
+  },
+  "raw_size": 134217728,
+  "sha256": "eb52b09329f105e6c920e979601da54772d1eb5d3a6fdf968dab02f29cab794e",
+  "zlib9": {
+   "gz_size": 41402278,
+   "ratio": 3.24
+  }
+ },
+ "csv.1m": {
+  "gzip6": {
+   "gz_size": 324227,
+   "ratio": 3.23
+  },
+  "igzip2": {
+   "gz_size": 359781,
+   "ratio": 2.91
+  },
+  "raw_size": 1048576,
+  "sha256": "9715f57fd25d6e7559caaeea0e9086d4cf1427b2d08c208cd95071333a40bd3f",
+  "zlib9": {
+   "gz_size": 324063,
+   "ratio": 3.24
+  }
+ },
+ "csv.2m": {
+  "gzip6": {
+   "gz_size": 647757,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 719078,
+   "ratio": 2.92
+  },
+  "raw_size": 2097152,
+  "sha256": "071583833418292b3e8a330a5d628b513b5f47d7c119377efadea0d1284f10a0",
+  "zlib9": {
+   "gz_size": 647413,
+   "ratio": 3.24
+  }
+ },
+ "csv.32m": {
+  "gzip6": {
+   "gz_size": 10356190,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 11498538,
+   "ratio": 2.92
+  },
+  "raw_size": 33554432,
+  "sha256": "dd9ef1ad9a94ab7ce652000d1a220cd1b9a83bf0fdbfdc0d317f3e4c1e85b317",
+  "zlib9": {
+   "gz_size": 10350970,
+   "ratio": 3.24
+  }
+ },
+ "csv.3m": {
+  "gzip6": {
+   "gz_size": 971330,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 1078540,
+   "ratio": 2.92
+  },
+  "raw_size": 3145728,
+  "sha256": "49adc1dd994f685d2993f11eb205ce373b5dcb66a3cbdd4a4bf88c7bf32382f0",
+  "zlib9": {
+   "gz_size": 970820,
+   "ratio": 3.24
+  }
+ },
+ "csv.4m": {
+  "gzip6": {
+   "gz_size": 1294792,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 1437725,
+   "ratio": 2.92
+  },
+  "raw_size": 4194304,
+  "sha256": "180b18b9e9b05b808c53f2db66e678365e00c1339d7c7485d699739689dc93f1",
+  "zlib9": {
+   "gz_size": 1294176,
+   "ratio": 3.24
+  }
+ },
+ "csv.64k": {
+  "gzip6": {
+   "gz_size": 20828,
+   "ratio": 3.15
+  },
+  "igzip2": {
+   "gz_size": 22777,
+   "ratio": 2.88
+  },
+  "raw_size": 65536,
+  "sha256": "705c48120fbd3fc3d75ad5a831983588423a353e0d1f4a0fa617d8b2a0d8f8ea",
+  "zlib9": {
+   "gz_size": 20826,
+   "ratio": 3.15
+  }
+ },
+ "csv.8m": {
+  "gzip6": {
+   "gz_size": 2589332,
+   "ratio": 3.24
+  },
+  "igzip2": {
+   "gz_size": 2874829,
+   "ratio": 2.92
+  },
+  "raw_size": 8388608,
+  "sha256": "8fe7a5237f740b698535d8b23fe2d3d58fcc6f23048c9c735a83868fff5fab81",
+  "zlib9": {
+   "gz_size": 2588105,
+   "ratio": 3.24
+  }
+ },
+ "fastq.128m": {
+  "gzip6": {
+   "gz_size": 35689729,
+   "ratio": 3.76
+  },
+  "igzip2": {
+   "gz_size": 39642174,
+   "ratio": 3.39
+  },
+  "raw_size": 134217728,
+  "sha256": "1820b92156936e91c2d2a7f5b4db892c9784cf9811430f6df440a393c5c93071",
+  "zlib9": {
+   "gz_size": 34429833,
+   "ratio": 3.9
+  }
+ },
+ "fastq.1m": {
+  "gzip6": {
+   "gz_size": 277911,
+   "ratio": 3.77
+  },
+  "igzip2": {
+   "gz_size": 310485,
+   "ratio": 3.38
+  },
+  "raw_size": 1048576,
+  "sha256": "0345403b88dc14394c31f2157d1690d92f10206d810cba921e194a65ee5ef351",
+  "zlib9": {
+   "gz_size": 267908,
+   "ratio": 3.91
+  }
+ },
+ "fastq.2m": {
+  "gzip6": {
+   "gz_size": 555016,
+   "ratio": 3.78
+  },
+  "igzip2": {
+   "gz_size": 620600,
+   "ratio": 3.38
+  },
+  "raw_size": 2097152,
+  "sha256": "524e63015be0598107c4166d426e324a1d182261769116f03407b902e7a9c68a",
+  "zlib9": {
+   "gz_size": 534829,
+   "ratio": 3.92
+  }
+ },
+ "fastq.32m": {
+  "gzip6": {
+   "gz_size": 8922798,
+   "ratio": 3.76
+  },
+  "igzip2": {
+   "gz_size": 9910719,
+   "ratio": 3.39
+  },
+  "raw_size": 33554432,
+  "sha256": "ac89e237ae512c34fa0d098a459e285e76e13238db00a47360e11059ecc530a8",
+  "zlib9": {
+   "gz_size": 8608049,
+   "ratio": 3.9
+  }
+ },
+ "fastq.3m": {
+  "gzip6": {
+   "gz_size": 832217,
+   "ratio": 3.78
+  },
+  "igzip2": {
+   "gz_size": 930847,
+   "ratio": 3.38
+  },
+  "raw_size": 3145728,
+  "sha256": "2cf244ab2a12e78003ec51aba6a50f19c32546c15cb089c5172bd11a2007088b",
+  "zlib9": {
+   "gz_size": 801908,
+   "ratio": 3.92
+  }
+ },
+ "fastq.4m": {
+  "gzip6": {
+   "gz_size": 1107107,
+   "ratio": 3.79
+  },
+  "igzip2": {
+   "gz_size": 1240368,
+   "ratio": 3.38
+  },
+  "raw_size": 4194304,
+  "sha256": "218eb047473b882846edd37c821ff88ce25c54daba5d7d7fd66f724384a64812",
+  "zlib9": {
+   "gz_size": 1066405,
+   "ratio": 3.93
+  }
+ },
+ "fastq.64k": {
+  "gzip6": {
+   "gz_size": 17761,
+   "ratio": 3.69
+  },
+  "igzip2": {
+   "gz_size": 19565,
+   "ratio": 3.35
+  },
+  "raw_size": 65536,
+  "sha256": "176662ec9c6ccfc3d8c6eeca4af403fa2a647715c88efd7199fb695a0b5436c1",
+  "zlib9": {
+   "gz_size": 17397,
+   "ratio": 3.77
+  }
+ },
+ "fastq.8m": {
+  "gzip6": {
+   "gz_size": 2206687,
+   "ratio": 3.8
+  },
+  "igzip2": {
+   "gz_size": 2478514,
+   "ratio": 3.38
+  },
+  "raw_size": 8388608,
+  "sha256": "fee2fb0cb27c0b89768dbf01524a65190f2cf7f50cbc2fbb085b04c52927ca13",
+  "zlib9": {
+   "gz_size": 2125795,
+   "ratio": 3.95
+  }
+ },
+ "json10.128m": {
+  "gzip6": {
+   "gz_size": 11585819,
+   "ratio": 11.58
+  },
+  "igzip2": {
+   "gz_size": 13144293,
+   "ratio": 10.21
+  },
+  "raw_size": 134217728,
+  "sha256": "a73f97fe7ef86232aa6f0fb8072e314249b6e2ceb7504305cd797b8f1e4cefea",
+  "zlib9": {
+   "gz_size": 10855961,
+   "ratio": 12.36
+  }
+ },
+ "json10.1m": {
+  "gzip6": {
+   "gz_size": 90826,
+   "ratio": 11.54
+  },
+  "igzip2": {
+   "gz_size": 103054,
+   "ratio": 10.18
+  },
+  "raw_size": 1048576,
+  "sha256": "1dbd0fdb12c14094262af5cc6bbc3517a345049eae46e4db380ab89073c02639",
+  "zlib9": {
+   "gz_size": 85285,
+   "ratio": 12.29
+  }
+ },
+ "json10.2m": {
+  "gzip6": {
+   "gz_size": 181488,
+   "ratio": 11.56
+  },
+  "igzip2": {
+   "gz_size": 205783,
+   "ratio": 10.19
+  },
+  "raw_size": 2097152,
+  "sha256": "0fd395a02e8f762cbc2f00b14313a54ebdb63acf612cbc0930bda3897c3240c0",
+  "zlib9": {
+   "gz_size": 170210,
+   "ratio": 12.32
+  }
+ },
+ "json10.32m": {
+  "gzip6": {
+   "gz_size": 2896001,
+   "ratio": 11.59
+  },
+  "igzip2": {
+   "gz_size": 3285757,
+   "ratio": 10.21
+  },
+  "raw_size": 33554432,
+  "sha256": "a61161db457f4d9846df95a6b66efe26dc6b594b224e5c05b014048c091cb523",
+  "zlib9": {
+   "gz_size": 2714095,
+   "ratio": 12.36
+  }
+ },
+ "json10.3m": {
+  "gzip6": {
+   "gz_size": 272036,
+   "ratio": 11.56
+  },
+  "igzip2": {
+   "gz_size": 308400,
+   "ratio": 10.2
+  },
+  "raw_size": 3145728,
+  "sha256": "42b51d8b5f44fdce93608710d2cdb690120defb7a2ade00708bc7934caebabdf",
+  "zlib9": {
+   "gz_size": 255024,
+   "ratio": 12.34
+  }
+ },
+ "json10.4m": {
+  "gzip6": {
+   "gz_size": 362517,
+   "ratio": 11.57
+  },
+  "igzip2": {
+   "gz_size": 411167,
+   "ratio": 10.2
+  },
+  "raw_size": 4194304,
+  "sha256": "e73400b55980cf6bf872d863e909624a5697b40bcd47972da81bb24ddecfb33d",
+  "zlib9": {
+   "gz_size": 339757,
+   "ratio": 12.35
+  }
+ },
+ "json10.64k": {
+  "gzip6": {
+   "gz_size": 5945,
+   "ratio": 11.02
+  },
+  "igzip2": {
+   "gz_size": 6642,
+   "ratio": 9.87
+  },
+  "raw_size": 65536,
+  "sha256": "d116ae97835c5e905c383ee37371325c5e101d59b7a7316346c171ef314e806a",
+  "zlib9": {
+   "gz_size": 5640,
+   "ratio": 11.62
+  }
+ },
+ "json10.8m": {
+  "gzip6": {
+   "gz_size": 724361,
+   "ratio": 11.58
+  },
+  "igzip2": {
+   "gz_size": 821458,
+   "ratio": 10.21
+  },
+  "raw_size": 8388608,
+  "sha256": "2cccf9bef6e24bac298e38d13a86a2cea9cef3745c8ade35ab07553bf6c8d8b2",
+  "zlib9": {
+   "gz_size": 678806,
+   "ratio": 12.36
+  }
+ },
+ "json10a.128m": {
+  "gzip6": {
+   "gz_size": 11589093,
+   "ratio": 11.66
+  },
+  "igzip2": {
+   "gz_size": 13105186,
+   "ratio": 10.31
+  },
+  "raw_size": 135087899,
+  "sha256": "c6ba3a8d6d88bf54b50f632dc924a6253c5bb6915004ca8f47085f16393c3285",
+  "zlib9": {
+   "gz_size": 10858593,
+   "ratio": 12.44
+  }
+ },
+ "json10a.1m": {
+  "gzip6": {
+   "gz_size": 90841,
+   "ratio": 11.62
+  },
+  "igzip2": {
+   "gz_size": 102740,
+   "ratio": 10.27
+  },
+  "raw_size": 1055308,
+  "sha256": "accf9dda093b7d6607aa42c54742ae67c85d3bc5bfeec66cd932d4ca31df03ba",
+  "zlib9": {
+   "gz_size": 85294,
+   "ratio": 12.37
+  }
+ },
+ "json10a.2m": {
+  "gzip6": {
+   "gz_size": 181534,
+   "ratio": 11.63
+  },
+  "igzip2": {
+   "gz_size": 205161,
+   "ratio": 10.29
+  },
+  "raw_size": 2110736,
+  "sha256": "32d205aa11a4a36d93411fbe9cbed1332feeb0a5120fd075ea0e87aba4085111",
+  "zlib9": {
+   "gz_size": 170245,
+   "ratio": 12.4
+  }
+ },
+ "json10a.32m": {
+  "gzip6": {
+   "gz_size": 2896845,
+   "ratio": 11.66
+  },
+  "igzip2": {
+   "gz_size": 3276072,
+   "ratio": 10.31
+  },
+  "raw_size": 33771968,
+  "sha256": "e99fdc0c6fb88111c3a383e67ca0eaac097381f6a05f3eb14fcd3c51b200b40b",
+  "zlib9": {
+   "gz_size": 2714800,
+   "ratio": 12.44
+  }
+ },
+ "json10a.3m": {
+  "gzip6": {
+   "gz_size": 272093,
+   "ratio": 11.64
+  },
+  "igzip2": {
+   "gz_size": 307481,
+   "ratio": 10.3
+  },
+  "raw_size": 3166085,
+  "sha256": "884a21727eb71b6b0a783d3761ece42ff0400c2a9835ac50f0eca52c2b905577",
+  "zlib9": {
+   "gz_size": 255074,
+   "ratio": 12.41
+  }
+ },
+ "json10a.4m": {
+  "gzip6": {
+   "gz_size": 362596,
+   "ratio": 11.64
+  },
+  "igzip2": {
+   "gz_size": 409934,
+   "ratio": 10.3
+  },
+  "raw_size": 4221449,
+  "sha256": "98aaa2b46859ff8604f52baebd1c6b3289478851eab687ce6465b1b290201813",
+  "zlib9": {
+   "gz_size": 339841,
+   "ratio": 12.42
+  }
+ },
+ "json10a.64k": {
+  "gzip6": {
+   "gz_size": 5953,
+   "ratio": 11.08
+  },
+  "igzip2": {
+   "gz_size": 6628,
+   "ratio": 9.95
+  },
+  "raw_size": 65959,
+  "sha256": "722f7721405864afc6d2067b2de49fe72e7f41011f153d8c3972f4d618da021e",
+  "zlib9": {
+   "gz_size": 5645,
+   "ratio": 11.68
+  }
+ },
+ "json10a.8m": {
+  "gzip6": {
+   "gz_size": 724558,
+   "ratio": 11.65
+  },
+  "igzip2": {
+   "gz_size": 819043,
+   "ratio": 10.31
+  },
+  "raw_size": 8442927,
+  "sha256": "8ced250d835cbbc87c141d0528bee835c413736cd5409ca71a330ee1c5bbc84a",
+  "zlib9": {
+   "gz_size": 678988,
+   "ratio": 12.43
+  }
+ },
+ "json21.128m": {
+  "gzip6": {
+   "gz_size": 4468908,
+   "ratio": 30.03
+  },
+  "igzip2": {
+   "gz_size": 6351863,
+   "ratio": 21.13
+  },
+  "raw_size": 134217728,
+  "sha256": "5e33ae8ffabceee66239bf05522136c3fedbdf77ba5cdb15ec2e4e63290dd471",
+  "zlib9": {
+   "gz_size": 3843531,
+   "ratio": 34.92
+  }
+ },
+ "json21.1m": {
+  "gzip6": {
+   "gz_size": 35369,
+   "ratio": 29.65
+  },
+  "igzip2": {
+   "gz_size": 50037,
+   "ratio": 20.96
+  },
+  "raw_size": 1048576,
+  "sha256": "6d7290c809a186d858cb824601b32077770591536061a3c21797d3c17f54b57e",
+  "zlib9": {
+   "gz_size": 30459,
+   "ratio": 34.43
+  }
+ },
+ "json21.2m": {
+  "gzip6": {
+   "gz_size": 70273,
+   "ratio": 29.84
+  },
+  "igzip2": {
+   "gz_size": 99498,
+   "ratio": 21.08
+  },
+  "raw_size": 2097152,
+  "sha256": "fd042d149451609c3b418a4e8fb813a6d8e917b40548524479d6ffb900393c4b",
+  "zlib9": {
+   "gz_size": 60508,
+   "ratio": 34.66
+  }
+ },
+ "json21.32m": {
+  "gzip6": {
+   "gz_size": 1117557,
+   "ratio": 30.02
+  },
+  "igzip2": {
+   "gz_size": 1588240,
+   "ratio": 21.13
+  },
+  "raw_size": 33554432,
+  "sha256": "029b55aa33029c30c4008af06a93d185f909e4ca67567b748bc81a94ab38adc6",
+  "zlib9": {
+   "gz_size": 961201,
+   "ratio": 34.91
+  }
+ },
+ "json21.3m": {
+  "gzip6": {
+   "gz_size": 105233,
+   "ratio": 29.89
+  },
+  "igzip2": {
+   "gz_size": 149414,
+   "ratio": 21.05
+  },
+  "raw_size": 3145728,
+  "sha256": "0f28ec31a075f06cf686816929aac8521081e2d05fa9267c1aebf4364130da38",
+  "zlib9": {
+   "gz_size": 90704,
+   "ratio": 34.68
+  }
+ },
+ "json21.4m": {
+  "gzip6": {
+   "gz_size": 140239,
+   "ratio": 29.91
+  },
+  "igzip2": {
+   "gz_size": 199058,
+   "ratio": 21.07
+  },
+  "raw_size": 4194304,
+  "sha256": "6680557c2b6dd41149a2e2c482f9d6ac6b5dc6b26d7b1d4c1cd1b29aebb595d0",
+  "zlib9": {
+   "gz_size": 120834,
+   "ratio": 34.71
+  }
+ },
+ "json21.64k": {
+  "gzip6": {
+   "gz_size": 2575,
+   "ratio": 25.45
+  },
+  "igzip2": {
+   "gz_size": 3367,
+   "ratio": 19.46
+  },
+  "raw_size": 65536,
+  "sha256": "199fae3345b2883d0afa5152f5fb4eaa96adbc1428dfcf48032dad768062c4ce",
+  "zlib9": {
+   "gz_size": 2268,
+   "ratio": 28.9
+  }
+ },
+ "json21.8m": {
+  "gzip6": {
+   "gz_size": 280010,
+   "ratio": 29.96
+  },
+  "igzip2": {
+   "gz_size": 397211,
+   "ratio": 21.12
+  },
+  "raw_size": 8388608,
+  "sha256": "f276d0d4944adcf04ded1cd4eba915039bec730d4678774b86b7b045604d6935",
+  "zlib9": {
+   "gz_size": 240970,
+   "ratio": 34.81
+  }
+ },
+ "json21a.128m": {
+  "gzip6": {
+   "gz_size": 4476643,
+   "ratio": 30.07
+  },
+  "igzip2": {
+   "gz_size": 6347266,
+   "ratio": 21.21
+  },
+  "raw_size": 134607006,
+  "sha256": "3acadfb451281b9dbdd57164531d8624b799dae9627d75e48c7819403682212b",
+  "zlib9": {
+   "gz_size": 3845227,
+   "ratio": 35.01
+  }
+ },
+ "json21a.1m": {
+  "gzip6": {
+   "gz_size": 35424,
+   "ratio": 29.68
+  },
+  "igzip2": {
+   "gz_size": 50017,
+   "ratio": 21.02
+  },
+  "raw_size": 1051283,
+  "sha256": "3aa05e99dba6534f41a4f014d3364315a0777d543439ccb9979c3fe353fa5a95",
+  "zlib9": {
+   "gz_size": 30472,
+   "ratio": 34.5
+  }
+ },
+ "json21a.2m": {
+  "gzip6": {
+   "gz_size": 70386,
+   "ratio": 29.88
+  },
+  "igzip2": {
+   "gz_size": 99437,
+   "ratio": 21.15
+  },
+  "raw_size": 2102967,
+  "sha256": "19c022b793a2fcf1106270410257a52d0011b2d3238615f4f56c292eac52c4fe",
+  "zlib9": {
+   "gz_size": 60534,
+   "ratio": 34.74
+  }
+ },
+ "json21a.32m": {
+  "gzip6": {
+   "gz_size": 1119487,
+   "ratio": 30.06
+  },
+  "igzip2": {
+   "gz_size": 1587061,
+   "ratio": 21.2
+  },
+  "raw_size": 33651687,
+  "sha256": "e602b0ac51b2f01af2dea40acf9df90859729a9cf6d7f770e7c7839cc403077f",
+  "zlib9": {
+   "gz_size": 961628,
+   "ratio": 34.99
+  }
+ },
+ "json21a.3m": {
+  "gzip6": {
+   "gz_size": 105409,
+   "ratio": 29.93
+  },
+  "igzip2": {
+   "gz_size": 149313,
+   "ratio": 21.13
+  },
+  "raw_size": 3154623,
+  "sha256": "e150e1a09fa96f05117b204e8e943cafc5b3f8ef9c22e38d85e4a59e6d0b23ae",
+  "zlib9": {
+   "gz_size": 90744,
+   "ratio": 34.76
+  }
+ },
+ "json21a.4m": {
+  "gzip6": {
+   "gz_size": 140473,
+   "ratio": 29.94
+  },
+  "igzip2": {
+   "gz_size": 198927,
+   "ratio": 21.15
+  },
+  "raw_size": 4206330,
+  "sha256": "b0b37af1d7933e3a410f38ef019151f31988cbbf693d935a280411324f0d9cfb",
+  "zlib9": {
+   "gz_size": 120887,
+   "ratio": 34.8
+  }
+ },
+ "json21a.64k": {
+  "gzip6": {
+   "gz_size": 2580,
+   "ratio": 25.46
+  },
+  "igzip2": {
+   "gz_size": 3368,
+   "ratio": 19.5
+  },
+  "raw_size": 65681,
+  "sha256": "65c5c398d571b9d43765abbaa0cb6fb0f61efaa92e4bb482aaaf479ccc316dff",
+  "zlib9": {
+   "gz_size": 2272,
+   "ratio": 28.91
+  }
+ },
+ "json21a.8m": {
+  "gzip6": {
+   "gz_size": 280475,
+   "ratio": 30.0
+  },
+  "igzip2": {
+   "gz_size": 396960,
+   "ratio": 21.19
+  },
+  "raw_size": 8412944,
+  "sha256": "8225f0006dfbd93513851d9201c61341ec9b1705e47b6fcfa665bb8b98d3f9c0",
+  "zlib9": {
+   "gz_size": 241086,
+   "ratio": 34.9
+  }
+ },
+ "json5.128m": {
+  "gzip6": {
+   "gz_size": 23822496,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 26309417,
+   "ratio": 5.1
+  },
+  "raw_size": 134217728,
+  "sha256": "ec6e4fbac2bd42793e73f06e67f24e551f6b475caca901324ee9cccce838071d",
+  "zlib9": {
+   "gz_size": 22739098,
+   "ratio": 5.9
+  }
+ },
+ "json5.1m": {
+  "gzip6": {
+   "gz_size": 186373,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 205627,
+   "ratio": 5.1
+  },
+  "raw_size": 1048576,
+  "sha256": "dfb2432387d93affb2c7b826b9a4fc6675127854211a9019d882affb9bcac96d",
+  "zlib9": {
+   "gz_size": 177831,
+   "ratio": 5.9
+  }
+ },
+ "json5.2m": {
+  "gzip6": {
+   "gz_size": 372625,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 411275,
+   "ratio": 5.1
+  },
+  "raw_size": 2097152,
+  "sha256": "2fb430df7170c48d03e9a019161021859eca40dacf992b840852c5de1a03d1f9",
+  "zlib9": {
+   "gz_size": 355528,
+   "ratio": 5.9
+  }
+ },
+ "json5.32m": {
+  "gzip6": {
+   "gz_size": 5956219,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 6577009,
+   "ratio": 5.1
+  },
+  "raw_size": 33554432,
+  "sha256": "a3e20f3831a2ab0b7e999c82e3da729402b3f15e249bed06eb9ef70ecdabe4f8",
+  "zlib9": {
+   "gz_size": 5684630,
+   "ratio": 5.9
+  }
+ },
+ "json5.3m": {
+  "gzip6": {
+   "gz_size": 558649,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 616494,
+   "ratio": 5.1
+  },
+  "raw_size": 3145728,
+  "sha256": "9ed3e79bcb8b3afa407843946bb8a1c27822769c07901e92e67f37b80ae51140",
+  "zlib9": {
+   "gz_size": 532999,
+   "ratio": 5.9
+  }
+ },
+ "json5.4m": {
+  "gzip6": {
+   "gz_size": 744920,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 822156,
+   "ratio": 5.1
+  },
+  "raw_size": 4194304,
+  "sha256": "d17442f6cbd56ac97c5efe72553bd8daecd9f657589490ac186585127a684bbd",
+  "zlib9": {
+   "gz_size": 710598,
+   "ratio": 5.9
+  }
+ },
+ "json5.64k": {
+  "gzip6": {
+   "gz_size": 11926,
+   "ratio": 5.5
+  },
+  "igzip2": {
+   "gz_size": 12992,
+   "ratio": 5.04
+  },
+  "raw_size": 65536,
+  "sha256": "d9e373522f3d68a60d5fcba8e0b097e9aa7a5e9e727ed3e8c97bcae86e283bca",
+  "zlib9": {
+   "gz_size": 11404,
+   "ratio": 5.75
+  }
+ },
+ "json5.8m": {
+  "gzip6": {
+   "gz_size": 1489520,
+   "ratio": 5.63
+  },
+  "igzip2": {
+   "gz_size": 1644176,
+   "ratio": 5.1
+  },
+  "raw_size": 8388608,
+  "sha256": "0fc5bf7202691f3b5679a861f69923040e95a0b15595535015cc6d651b65c8de",
+  "zlib9": {
+   "gz_size": 1421199,
+   "ratio": 5.9
+  }
+ },
+ "json5a.128m": {
+  "gzip6": {
+   "gz_size": 23888883,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 26317341,
+   "ratio": 5.16
+  },
+  "raw_size": 135725613,
+  "sha256": "866773eabf3fd5f6543b8bbd0e395cc5c90e1635f0e74ce9fc5f924107efe462",
+  "zlib9": {
+   "gz_size": 22771836,
+   "ratio": 5.96
+  }
+ },
+ "json5a.1m": {
+  "gzip6": {
+   "gz_size": 186902,
+   "ratio": 5.67
+  },
+  "igzip2": {
+   "gz_size": 205703,
+   "ratio": 5.15
+  },
+  "raw_size": 1060271,
+  "sha256": "6efda59b04dfcd2794c49d2844ae321521ad95204432f16fab0e8cef9bd674fa",
+  "zlib9": {
+   "gz_size": 178074,
+   "ratio": 5.95
+  }
+ },
+ "json5a.2m": {
+  "gzip6": {
+   "gz_size": 373680,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 411436,
+   "ratio": 5.15
+  },
+  "raw_size": 2120673,
+  "sha256": "b49a6d6bc62cade7488884718242615eb2054173221bc6e269d441b91cfe9857",
+  "zlib9": {
+   "gz_size": 356019,
+   "ratio": 5.96
+  }
+ },
+ "json5a.32m": {
+  "gzip6": {
+   "gz_size": 5973001,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 6578969,
+   "ratio": 5.16
+  },
+  "raw_size": 33931382,
+  "sha256": "3d324e7686004fcbbded839592f0d7390a054bd71be6f2c02e81023a3eb876cb",
+  "zlib9": {
+   "gz_size": 5693159,
+   "ratio": 5.96
+  }
+ },
+ "json5a.3m": {
+  "gzip6": {
+   "gz_size": 560224,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 616736,
+   "ratio": 5.16
+  },
+  "raw_size": 3181055,
+  "sha256": "2ade72954c63eeb02b1b1527425886f9bcacf138d49f291c0d5e348fdd9dae87",
+  "zlib9": {
+   "gz_size": 533759,
+   "ratio": 5.96
+  }
+ },
+ "json5a.4m": {
+  "gzip6": {
+   "gz_size": 747034,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 822468,
+   "ratio": 5.16
+  },
+  "raw_size": 4241414,
+  "sha256": "19c8b771959eaee276b8b784250bc85fad096d208e1c03be2b9b6e11181b497b",
+  "zlib9": {
+   "gz_size": 711627,
+   "ratio": 5.96
+  }
+ },
+ "json5a.64k": {
+  "gzip6": {
+   "gz_size": 11938,
+   "ratio": 5.54
+  },
+  "igzip2": {
+   "gz_size": 12993,
+   "ratio": 5.09
+  },
+  "raw_size": 66189,
+  "sha256": "8b38e8d331e8899a74814c49998d0e5729ac6e8e773c1b79e8ca5152cce16324",
+  "zlib9": {
+   "gz_size": 11408,
+   "ratio": 5.8
+  }
+ },
+ "json5a.8m": {
+  "gzip6": {
+   "gz_size": 1493682,
+   "ratio": 5.68
+  },
+  "igzip2": {
+   "gz_size": 1644697,
+   "ratio": 5.16
+  },
+  "raw_size": 8482809,
+  "sha256": "03eaf2cabf2af37565ab218e966aa08e30e8a8c0b7e814f037a451465f237fd4",
+  "zlib9": {
+   "gz_size": 1423259,
+   "ratio": 5.96
+  }
+ },
+ "log.128m": {
+  "gzip6": {
+   "gz_size": 16217423,
+   "ratio": 8.28
+  },
+  "igzip2": {
+   "gz_size": 19912470,
+   "ratio": 6.74
+  },
+  "raw_size": 134217728,
+  "sha256": "f827a32906701cadf312259ea849a190b41844d4276ce3360fd9d3a4c67fca90",
+  "zlib9": {
+   "gz_size": 15136178,
+   "ratio": 8.87
+  }
+ },
+ "log.1m": {
+  "gzip6": {
+   "gz_size": 127052,
+   "ratio": 8.25
+  },
+  "igzip2": {
+   "gz_size": 155770,
+   "ratio": 6.73
+  },
+  "raw_size": 1048576,
+  "sha256": "db0fd840fdd712d33f518d1042d8d04c7fd260c68c455f2c969f7f465d6a6163",
+  "zlib9": {
+   "gz_size": 118633,
+   "ratio": 8.84
+  }
+ },
+ "log.2m": {
+  "gzip6": {
+   "gz_size": 253573,
+   "ratio": 8.27
+  },
+  "igzip2": {
+   "gz_size": 311177,
+   "ratio": 6.74
+  },
+  "raw_size": 2097152,
+  "sha256": "d3a1d06201294eeb2e60175aa28b845e98e1a2dc8ef145ddf8f4e17659337ca3",
+  "zlib9": {
+   "gz_size": 236805,
+   "ratio": 8.86
+  }
+ },
+ "log.32m": {
+  "gzip6": {
+   "gz_size": 4053479,
+   "ratio": 8.28
+  },
+  "igzip2": {
+   "gz_size": 4975877,
+   "ratio": 6.74
+  },
+  "raw_size": 33554432,
+  "sha256": "6742a5f181d62d9f7dc463cf0663d8c9856c275693c8f694ede70954dc742863",
+  "zlib9": {
+   "gz_size": 3782892,
+   "ratio": 8.87
+  }
+ },
+ "log.3m": {
+  "gzip6": {
+   "gz_size": 380165,
+   "ratio": 8.27
+  },
+  "igzip2": {
+   "gz_size": 466316,
+   "ratio": 6.75
+  },
+  "raw_size": 3145728,
+  "sha256": "a7ebbe558c4101f86d659224785c4893dfbee504265caa4499e6f45a27649e3c",
+  "zlib9": {
+   "gz_size": 354972,
+   "ratio": 8.86
+  }
+ },
+ "log.4m": {
+  "gzip6": {
+   "gz_size": 506164,
+   "ratio": 8.29
+  },
+  "igzip2": {
+   "gz_size": 620801,
+   "ratio": 6.76
+  },
+  "raw_size": 4194304,
+  "sha256": "f289348aa71fb96d3c0061a08f30088bfe4cffa9d095dba87ab64111a760c856",
+  "zlib9": {
+   "gz_size": 472552,
+   "ratio": 8.88
+  }
+ },
+ "log.64k": {
+  "gzip6": {
+   "gz_size": 8441,
+   "ratio": 7.76
+  },
+  "igzip2": {
+   "gz_size": 10047,
+   "ratio": 6.52
+  },
+  "raw_size": 65536,
+  "sha256": "a8de03d632bbfebf0cdaadb31de1df6fd1ba7e4220f2fc795db3eb158d99ee50",
+  "zlib9": {
+   "gz_size": 7941,
+   "ratio": 8.25
+  }
+ },
+ "log.8m": {
+  "gzip6": {
+   "gz_size": 1013849,
+   "ratio": 8.27
+  },
+  "igzip2": {
+   "gz_size": 1244012,
+   "ratio": 6.74
+  },
+  "raw_size": 8388608,
+  "sha256": "8545d005008c54308f7860e7e239b433d7bcd4e388dac5b1e6372c3d9f033456",
+  "zlib9": {
+   "gz_size": 946273,
+   "ratio": 8.86
+  }
+ },
+ "text.128m": {
+  "gzip6": {
+   "gz_size": 31461324,
+   "ratio": 4.27
+  },
+  "igzip2": {
+   "gz_size": 37302905,
+   "ratio": 3.6
+  },
+  "raw_size": 134217728,
+  "sha256": "a4562ac00b9ac28a2db617cbebe2122f488ebede6b183efb8c551b257c691f8b",
+  "zlib9": {
+   "gz_size": 31094008,
+   "ratio": 4.32
+  }
+ },
+ "text.1m": {
+  "gzip6": {
+   "gz_size": 240398,
+   "ratio": 4.36
+  },
+  "igzip2": {
+   "gz_size": 287479,
+   "ratio": 3.65
+  },
+  "raw_size": 1048576,
+  "sha256": "8ff55e19db9982e1e8ad35a53c2e5069af65914f1bc1f892515130326ac3812f",
+  "zlib9": {
+   "gz_size": 237794,
+   "ratio": 4.41
+  }
+ },
+ "text.2m": {
+  "gzip6": {
+   "gz_size": 492440,
+   "ratio": 4.26
+  },
+  "igzip2": {
+   "gz_size": 586909,
+   "ratio": 3.57
+  },
+  "raw_size": 2097152,
+  "sha256": "ecadb1314e9625fa74413026d1ac176845530e02bef9fee77003e38185cbe51a",
+  "zlib9": {
+   "gz_size": 487570,
+   "ratio": 4.3
+  }
+ },
+ "text.32m": {
+  "gzip6": {
+   "gz_size": 7865852,
+   "ratio": 4.27
+  },
+  "igzip2": {
+   "gz_size": 9323231,
+   "ratio": 3.6
+  },
+  "raw_size": 33554432,
+  "sha256": "26c26487aaa2da5a127b9ca66c5eddc5e573299b55f9d2b666ea38199d455035",
+  "zlib9": {
+   "gz_size": 7773708,
+   "ratio": 4.32
+  }
+ },
+ "text.3m": {
+  "gzip6": {
+   "gz_size": 696823,
+   "ratio": 4.51
+  },
+  "igzip2": {
+   "gz_size": 833007,
+   "ratio": 3.78
+  },
+  "raw_size": 3145728,
+  "sha256": "97eeef17fec1b6eee8dd1782dc87beb61a8efe58866f152442bd7c8afc0df1f7",
+  "zlib9": {
+   "gz_size": 687201,
+   "ratio": 4.58
+  }
+ },
+ "text.4m": {
+  "gzip6": {
+   "gz_size": 851367,
+   "ratio": 4.93
+  },
+  "igzip2": {
+   "gz_size": 1024503,
+   "ratio": 4.09
+  },
+  "raw_size": 4194304,
+  "sha256": "3bd6b30401d1d550ecbf08808dc1c80577865602cafc08fcd3e685201de97b5b",
+  "zlib9": {
+   "gz_size": 836772,
+   "ratio": 5.01
+  }
+ },
+ "text.64k": {
+  "gzip6": {
+   "gz_size": 17153,
+   "ratio": 3.82
+  },
+  "igzip2": {
+   "gz_size": 19717,
+   "ratio": 3.32
+  },
+  "raw_size": 65536,
+  "sha256": "3fc4b853c13dc4ea610c4e8efe69e1028b9161250b5775e79bb8c2f4d129cd08",
+  "zlib9": {
+   "gz_size": 17113,
+   "ratio": 3.83
+  }
+ },
+ "text.8m": {
+  "gzip6": {
+   "gz_size": 1917258,
+   "ratio": 4.38
+  },
+  "igzip2": {
+   "gz_size": 2276905,
+   "ratio": 3.68
+  },
+  "raw_size": 8388608,
+  "sha256": "2c1bcd7b7edea6400926ec41795d632c4ce4e7512b865f6f0cfce7409a35bc68",
+  "zlib9": {
+   "gz_size": 1894363,
+   "ratio": 4.43
+  }
+ }
+}
