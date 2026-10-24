@@ -69,10 +69,10 @@ jobs:
           } > results/env.txt 2>&1
           cat results/env.txt
       - name: Build the variants
-        run: python eval/bench/build_variants.py work develop pr nofstat firstchunk stats-pr stats-dev 2>&1 | tee results/build.log
+        run: python eval/bench/build_variants.py work develop pr min2x stats-pr stats-dev stats-min2x 2>&1 | tee results/build.log
       - name: Test every build
         run: |
-          for v in develop pr nofstat firstchunk stats-pr stats-dev; do
+          for v in develop pr min2x stats-pr stats-dev stats-min2x; do
             if [ "$RUNNER_OS" = Windows ]; then py=work/v/$v/Scripts/python.exe; else py=work/v/$v/bin/python; fi
             echo "== $v own suite: $( (cd work/src/$v && ../../../$py -m pytest -q -p no:cacheprovider tests/ 2>&1) | tail -1)" | tee -a results/tests.txt
             echo "== $v PR test_readall.py: $($py -m pytest -q -p no:cacheprovider work/src/pr/tests/test_readall.py 2>&1 | tail -1)" | tee -a results/tests.txt
@@ -95,7 +95,7 @@ jobs:
           for s in ci_main ci_worst; do
             [ -f results/$s.jsonl ] || continue
             python eval/bench/summarize.py --wall results/$s.jsonl > results/$s.wall.md
-            python eval/bench/summarize.py --cpu results/$s.jsonl > results/$s.cpu.md
+            python eval/bench/summarize.py --cpu results/$s.jsonl > results/$s.cpu.md || true
           done
       - uses: actions/upload-artifact@v4
         if: always()

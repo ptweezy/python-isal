@@ -1,0 +1,29 @@
+diff --git a/src/isal/isal_zlibmodule.c b/src/isal/isal_zlibmodule.c
+index 1c73112..4c35752 100644
+--- a/src/isal/isal_zlibmodule.c
++++ b/src/isal/isal_zlibmodule.c
+@@ -2183,10 +2183,11 @@ GzipReader_compressed_left(GzipReader *self)
+ }
+ 
+ /* Return the size for the readall() buffer when it is full: the output so
+-   far scaled by the input it came from, plus an eighth. The buffer grows by
+-   at least a quarter, so a low estimate still converges, and to at most 8
+-   times its size, which limits the allocation when the rest of the data
+-   compresses less well. */
++   far scaled by the input it came from, plus an eighth. The buffer at least
++   doubles, so that a low estimate needs few resizes: where realloc() copies,
++   as on Windows, all resizes then copy less than the output in total. It
++   grows to at most 8 times its size, which limits the allocation when the
++   rest of the data compresses less well. */
+ static Py_ssize_t
+ readall_new_size(Py_ssize_t written, Py_ssize_t consumed, Py_ssize_t left)
+ {
+@@ -2195,7 +2196,7 @@ readall_new_size(Py_ssize_t written, Py_ssize_t consumed, Py_ssize_t left)
+         size += size * (double)left / (double)consumed;
+     }
+     size += size / 8;
+-    double min_size = (double)written + (double)(written / 4);
++    double min_size = (double)written * 2;
+     double max_size = (double)written * 8;
+     if (size < min_size) {
+         size = min_size;

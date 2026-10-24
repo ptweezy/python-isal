@@ -29,11 +29,13 @@ worst = [{"id": f"worst.{w}.{call}", "call": call,
          for call in ("decompress", "read")]
 specs = {
     "ci_main": {"rounds": 9, "configs": [cfg(v) for v in
-                                         ("develop", "pr", "nofstat", "firstchunk")],
+                                         ("develop", "pr", "min2x")],
                 "cases": main},
-    "ci_worst": {"rounds": 5, "configs": [cfg("develop"), cfg("pr")],
+    "ci_worst": {"rounds": 7, "configs": [cfg(v) for v in
+                                          ("develop", "pr", "min2x")],
                  "cases": worst},
-    "ci_stats": {"rounds": 1, "configs": [cfg("stats-dev"), cfg("stats-pr")],
+    "ci_stats": {"rounds": 1, "configs": [cfg("stats-dev"), cfg("stats-pr"),
+                                          cfg("stats-min2x")],
                  "cases": main + worst},
 }
 os.makedirs(os.path.join(work, "specs"), exist_ok=True)
