@@ -1,0 +1,18 @@
+# Page fault cost on GitHub's runners, for the PR #290 evaluation.
+name: faultcost
+on:
+  push:
+    branches: [eval-pr290-faultcost]
+jobs:
+  faultcost:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python fault_cost2.py 64 15
+      - run: python fault_cost2.py 256 7
