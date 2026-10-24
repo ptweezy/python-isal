@@ -141,7 +141,7 @@ jobs:
             echo "== $v own suite: $( (cd work/src/$v && ../../../$py -m pytest -q -p no:cacheprovider tests/ 2>&1) | tail -1)" | tee -a results/tests.txt
             echo "== $v PR test_readall.py: $($py -m pytest -q -p no:cacheprovider work/src/pr/tests/test_readall.py 2>&1 | tail -1)" | tee -a results/tests.txt
             echo "== $v stress test" | tee -a results/stress.txt
-            $py eval/bench/stress_ft.py 2>&1 | tee -a results/stress.txt
+            $py eval/bench/stress_ft.py 2>&1 | tee -a results/stress.txt || echo "stress test exit status $?" | tee -a results/stress.txt
           done
       - uses: actions/upload-artifact@v4
         if: always()

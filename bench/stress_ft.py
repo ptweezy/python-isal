@@ -47,28 +47,34 @@ def separate(kind, iters):
             return
 
 
+N_TOTAL = len(EXPECTED) // 8
+non_contiguous = {"read": 0, "readall": 0}
+
+
 def check_chunks(chunks, label):
-    covered = []
-    for c in chunks:
+    """Every 8-byte block of the stream must come back exactly once. Chunks
+    that aren't one contiguous run of blocks are counted, not failed: on
+    develop, another thread can read in the middle of a readall() call."""
+    seen = bytearray(N_TOTAL)
+    for kind, c in chunks:
         if not c:
             continue
         if len(c) % 8:
             failures.append(f"{label}: unaligned chunk of {len(c)} bytes")
             return
-        off = struct.unpack_from("<Q", c)[0] * 8
-        if EXPECTED[off:off + len(c)] != c:
-            failures.append(f"{label}: chunk content at {off} is wrong")
+        idx = struct.unpack(f"<{len(c) // 8}Q", c)
+        if any(i >= N_TOTAL for i in idx):
+            failures.append(f"{label}: block index out of range")
             return
-        covered.append((off, off + len(c)))
-    covered.sort()
-    pos = 0
-    for a, b in covered:
-        if a != pos:
-            failures.append(f"{label}: gap or overlap at {pos} (next {a})")
-            return
-        pos = b
-    if pos != len(EXPECTED):
-        failures.append(f"{label}: covered {pos} of {len(EXPECTED)} bytes")
+        for i in idx:
+            if seen[i]:
+                failures.append(f"{label}: block {i} returned twice")
+                return
+            seen[i] = 1
+        if idx[-1] - idx[0] != len(idx) - 1:
+            non_contiguous[kind] += 1
+    if not all(seen):
+        failures.append(f"{label}: {seen.count(0)} blocks never returned")
 
 
 def shared(make_reader, label, threads=8):
@@ -82,13 +88,15 @@ def shared(make_reader, label, threads=8):
         barrier.wait()
         while True:
             if i % 2:
+                kind = "read"
                 b = reader.read(8 * rng.randrange(1, 8192))
-            elif hasattr(reader, "readall"):
-                b = reader.readall()
             else:
-                b = reader.read()  # IGzipFile: read() without a size
+                kind = "readall"
+                # IGzipFile has no readall(); read() without a size calls it.
+                b = (reader.readall() if hasattr(reader, "readall")
+                     else reader.read())
             with lock:
-                chunks.append(b)
+                chunks.append((kind, b))
             if not b:
                 return
 
@@ -121,6 +129,8 @@ for it in range(150):
         break
 print(f"shared readers: {it + 1} x 3 tests in {time.perf_counter() - t0:.1f} s",
       flush=True)
+print("non-contiguous chunks (another thread read in the middle):",
+      non_contiguous, flush=True)
 os.unlink(tmp.name)
 if failures:
     print("FAILURES:", *failures[:10], sep="\n  ")

@@ -3,9 +3,7 @@ Usage: patch_variants.py <kind> <path to isal_zlibmodule.c>"""
 import sys
 
 kind, p = sys.argv[1], sys.argv[2]
-s = open(p, encoding="utf-8", newline="").read().replace("
-", "
-")
+s = open(p, encoding="utf-8", newline="").read().replace(chr(13) + chr(10), chr(10))
 
 
 def sub(old, new):
