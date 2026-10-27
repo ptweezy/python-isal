@@ -3,7 +3,8 @@
 Usage: make_full_specs.py <gz dir> <venv dir> <out spec> <rounds> [kind...]
 
 Configs: develop, develop-aa (the same develop build again, an A/A control
-for the noise floor), pr, and min2x (the PR with a minimum growth step of 2).
+for the noise floor), pr, and x10 (develop with readall() chunks of 10 times
+the input buffer size instead of 4 times).
 Each venv is <venv dir>/<name>, with python in Scripts/ on Windows and bin/
 elsewhere. Cases, for each kind given (default: all seven):
   - igzip.decompress() and igzip.open(path).read() for 3 compressors and 8
@@ -38,7 +39,7 @@ def case(kind, size, comp, call):
 configs = [{"name": "develop", "python": python("develop"), "env": {}},
            {"name": "develop-aa", "python": python("develop"), "env": {}},
            {"name": "pr", "python": python("pr"), "env": {}},
-           {"name": "min2x", "python": python("min2x"), "env": {}}]
+           {"name": "x10", "python": python("x10"), "env": {}}]
 cases = []
 for k in kinds:
     cases += [case(k, s, c, call) for c in COMPS for s in SIZES

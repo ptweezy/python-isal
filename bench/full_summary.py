@@ -50,8 +50,9 @@ for fn in files:
         runs[c][r["config"]][r["round"]] = r
         meta.setdefault("python", r.get("python"))
         meta.setdefault("cpu_unit", r.get("cpu_unit", "ns"))
-VARIANTS = [v for v in ("develop-aa", "pr", "min2x")
-            if any(v in d for d in runs.values())]
+# Every config other than develop, with the A/A control last.
+VARIANTS = sorted({v for d in runs.values() for v in d} - {"develop"},
+                  key=lambda v: (v == "develop-aa", v))
 rng = random.Random(290)
 B = 4000
 
@@ -142,7 +143,8 @@ print("Median of the case speedups (min-max over cases); then the number of "
 groups = collections.OrderedDict()
 for c in order:
     groups.setdefault((call_of(c), size_of(c)), []).append(c)
-DISPLAY = [v for v in ("pr", "min2x", "develop-aa") if v in VARIANTS]
+DISPLAY = VARIANTS
+OWN = ["develop"] + [v for v in VARIANTS if v != "develop-aa"]
 hdr = "| call | size | cases |"
 for v in DISPLAY:
     hdr += f" {v} warm | {v} cold |"
@@ -182,7 +184,7 @@ print("Faults: median minor page faults per warm call; dRSS: median growth "
 hdr = "| case | develop warm ms (wall) |"
 for v in DISPLAY:
     hdr += f" {v} warm | {v} cold |"
-hdr += " faults dev/pr/min2x | dRSS dev/pr/min2x |"
+hdr += f" faults {'/'.join(OWN)} | dRSS {'/'.join(OWN)} |"
 print(hdr)
 print("|" + "---|" * (hdr.count("|") - 1))
 for c in order:
@@ -192,9 +194,8 @@ for c in order:
         for k in ("warm", "cold"):
             s = res[c].get(v, {}).get(k)
             row += f" {fmt(s)}{mark(s, k)} |"
-    fl = [med_field(c, v, "warm_minflt") for v in ("develop", "pr", "min2x")]
-    rss = [med_field(c, v, "rss_peak_growth_kb") for v in ("develop", "pr",
-                                                           "min2x")]
+    fl = [med_field(c, v, "warm_minflt") for v in OWN]
+    rss = [med_field(c, v, "rss_peak_growth_kb") for v in OWN]
     row += " " + "/".join("" if x is None else f"{x:.0f}" for x in fl) + " |"
     row += " " + "/".join("" if x is None else f"{x / 1024:.1f}"
                           for x in rss) + " |"

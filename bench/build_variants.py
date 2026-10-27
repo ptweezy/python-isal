@@ -20,8 +20,10 @@ BASE = {"develop": ("develop", None), "pr": ("pr", None),
         "nofstat": ("pr", "nofstat.diff"),
         "firstchunk": ("develop", "firstchunk.diff"),
         "stats-pr": ("pr", "stats-pr"), "stats-dev": ("develop", "stats-dev"),
-        "min2x": ("pr", "min2x.diff"), "stats-min2x": ("min2x", "stats-pr")}
-SHA = {"develop": "cfcf8b9", "pr": "b5e0495", "min2x": "530e4b6"}
+        "min2x": ("pr", "min2x.diff"), "stats-min2x": ("min2x", "stats-pr"),
+        "x10": ("develop", "x10.diff"), "stats-x10": ("x10", "stats-dev")}
+SHA = {"develop": "cfcf8b9", "pr": "b5e0495", "min2x": "530e4b6",
+       "x10": "ac426bd"}
 win = sys.platform == "win32"
 
 

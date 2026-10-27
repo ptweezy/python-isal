@@ -1,0 +1,13 @@
+diff --git a/src/isal/isal_zlibmodule.c b/src/isal/isal_zlibmodule.c
+index 7686d0a..7071d7e 100644
+--- a/src/isal/isal_zlibmodule.c
++++ b/src/isal/isal_zlibmodule.c
+@@ -2131,7 +2131,7 @@ static PyObject *
+ GzipReader_readall(GzipReader *self, PyObject *Py_UNUSED(ignore))
+ {
+     /* Try to consume the entire buffer without too much overallocation */
+-    Py_ssize_t chunk_size = self->buffer_size * 4;
++    Py_ssize_t chunk_size = self->buffer_size * 10;
+     /* Rather than immediately creating a list, read one chunk first and
+        only create a list when more read operations are necessary. */
+     PyObject *first_chunk = PyBytes_FromStringAndSize(NULL, chunk_size);
