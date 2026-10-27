@@ -1,0 +1,96 @@
+# PR #290, x10 evaluation, small inputs: igzip.decompress() of outputs from
+# 8 KiB to 1 MiB at about 3 and 6 to 1 (bench/gen_small.py), for develop, an
+# A/A copy of develop, the PR, and x10. It checks where a chunk of 10 times
+# the compressed size crosses glibc's mmap threshold of 128 KiB, and what the
+# same sizes do on Windows and macOS. Not part of the PR.
+name: eval-pr290-x10-small
+on:
+  push:
+    branches: [eval-pr290-x10-small]
+  workflow_dispatch:
+
+env:
+  DEVELOP_SHA: cfcf8b9157707b4c0ccd2f38ef2ebdbdc2f08322
+  PR_SHA: b5e04953bd3194ef80ea637a65be5091bf102542
+  ROUNDS: 11
+  VARIANTS: develop pr x10
+
+jobs:
+  bench:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Keep LF line endings (the variant patches expect them)
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          path: eval
+      - uses: actions/checkout@v4
+        with:
+          repository: pycompression/python-isal
+          ref: ${{ env.DEVELOP_SHA }}
+          path: work/src/develop
+          submodules: recursive
+      - uses: actions/checkout@v4
+        with:
+          repository: ptweezy/python-isal
+          ref: ${{ env.PR_SHA }}
+          path: work/src/pr
+          submodules: recursive
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install nasm (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y -qq nasm
+      - name: Install nasm (macOS)
+        if: runner.os == 'macOS'
+        run: brew install nasm
+      - name: Set MSVC developer prompt
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Install nasm (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/setup-nasm@v1
+      - name: Record the environment
+        run: |
+          mkdir -p results
+          {
+            python -c "import platform, sys, os; print(platform.platform()); print(platform.machine(), platform.processor()); print(sys.version); print('cpus', os.cpu_count())"
+            case "$RUNNER_OS" in
+              Linux) lscpu | grep -E "Model name|^CPU\(s\)|Hypervisor"; uname -a; gcc --version | head -1; cat /sys/kernel/mm/transparent_hugepage/enabled; free -m ;;
+              macOS) sysctl -n machdep.cpu.brand_string; sw_vers; uname -a; cc --version | head -1; sysctl -n hw.memsize ;;
+              Windows) powershell -NoProfile -Command "(Get-CimInstance Win32_Processor).Name; (Get-CimInstance Win32_OperatingSystem).Caption; (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory"; cl 2>&1 | head -1 ;;
+            esac
+            gzip --version 2>&1 | head -1
+          } > results/env.txt 2>&1
+          cat results/env.txt
+      - name: Build the variants
+        run: python eval/bench/build_variants.py work $VARIANTS 2>&1 | tee results/build.log
+      - name: Generate the data
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then py=work/v/develop/Scripts/python.exe; else py=work/v/develop/bin/python; fi
+          $py eval/bench/gen_small.py eval/data/src work/small | tee results/data.txt
+          cp work/small/manifest.json results/manifest.json
+      - name: Benchmarks
+        run: |
+          python eval/bench/make_sweep_specs.py work/small work/v work/specs/full.json $ROUNDS
+          python eval/bench/bench.py work/specs/full.json results/full.jsonl
+      - name: Summaries
+        if: always()
+        run: |
+          [ -f results/full.jsonl ] || exit 0
+          python eval/bench/full_summary.py --clock cpu --json results/full.cpu.json --title "${{ matrix.os }} small, CPU time" results/full.jsonl > results/full.cpu.md
+          python eval/bench/full_summary.py --clock wall --json results/full.wall.json --title "${{ matrix.os }} small, wall time" results/full.jsonl > results/full.wall.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: x10small-${{ matrix.os }}
+          path: results/
